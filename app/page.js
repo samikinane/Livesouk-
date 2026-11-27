@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import {
   ShoppingBag, Search, MapPin, MessageCircle, Heart, Plus, X,
   Star, ShieldCheck, Eye, Flame, Trash2, CheckCircle2,
-  Sparkles, Loader2, Play, Store, Home, Compass, Zap, Share2, Globe,
+  Sparkles, Loader2, Play, Store, Home, Compass, Zap, Share2,
 } from "lucide-react";
 
 const SUPABASE_URL = "https://yvicrakxdkotiiqqaytp.supabase.co";
@@ -144,12 +144,17 @@ const CATEGORIES = [
   { id: "عطور", icon: "✨", ar: "عطور", fr: "Parfums", en: "Perfumes" },
 ];
 
-const CARD_THEMES = [
-  "from-[#B44328] via-[#9A3412] to-[#D4A33C]",
-  "from-[#2E5A44] via-[#1E3F2F] to-[#B44328]",
-  "from-[#7C2D12] via-[#B44328] to-[#EA580C]",
-  "from-[#1E3A2F] via-[#2E5A44] to-[#D4A33C]",
+const SAFE_GRADIENTS = [
+  "linear-gradient(135deg, #B44328 0%, #7C2D12 50%, #2E5A44 100%)",
+  "linear-gradient(135deg, #2E5A44 0%, #143D2B 55%, #B44328 100%)",
+  "linear-gradient(135deg, #9A3412 0%, #B44328 55%, #D4A33C 100%)",
+  "linear-gradient(135deg, #1E3A2F 0%, #2E5A44 50%, #92400E 100%)",
 ];
+
+const ZELLIGE_BG_STYLE = {
+  backgroundColor: "#F7F3EB",
+  backgroundImage: `url("data:image/svg+xml,%3Csvg width='64' height='64' viewBox='0 0 64 64' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23B44328' stroke-width='1' stroke-opacity='0.09'%3E%3Cpolygon points='32,4 40,24 60,32 40,40 32,60 24,40 4,32 24,24'/%3E%3Crect x='16' y='16' width='32' height='32' transform='rotate(45 32 32)'/%3E%3Ccircle cx='32' cy='32' r='6' stroke='%232E5A44' stroke-opacity='0.12'/%3E%3C/g%3E%3C/svg%3E")`,
+};
 
 function LiveSoukSoukPinLogo() {
   return (
@@ -226,7 +231,6 @@ export default function LiveSoukHome() {
     e.preventDefault();
     if (!formData.title || !formData.seller || !formData.price || !formData.whatsapp) return;
     setSubmitting(true);
-    const randomColor = CARD_THEMES[Math.floor(Math.random() * CARD_THEMES.length)];
     const cleanWa = formData.whatsapp.replace(/[^0-9]/g, "").replace(/^0/, country.dial);
     const payload = {
       title: formData.title.trim(),
@@ -240,7 +244,7 @@ export default function LiveSoukHome() {
       verified: true,
       viewers: Math.floor(Math.random() * 55) + 20,
       is_live: true,
-      color: randomColor,
+      color: "terracotta-olive",
     };
     try {
       const res = await fetch(`${SUPABASE_URL}/rest/v1/streams`, {
@@ -293,14 +297,14 @@ export default function LiveSoukHome() {
   const totalCartPrice = cart.reduce((sum, item) => sum + Number(item.price), 0);
 
   return (
-    <div dir="rtl" className="min-h-screen bg-[#F7F3EB] text-[#2C241E] font-sans pb-28">
+    <div dir="rtl" style={ZELLIGE_BG_STYLE} className="min-h-screen text-[#2C241E] font-sans pb-28">
       {toast && (
         <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-[#2C241E] text-[#FAF7F2] px-5 py-2 rounded-full shadow-xl border border-[#D4A33C]/40 flex items-center gap-2 text-xs font-bold">
           <CheckCircle2 className="w-4 h-4 text-[#D4A33C]" /><span>{toast}</span>
         </div>
       )}
 
-      <div className="bg-[#2E5A44] text-[#FAF7F2] text-[11px] font-extrabold py-1.5 px-3 text-center flex items-center justify-center gap-2">
+      <div style={{ backgroundColor: "#2E5A44" }} className="text-[#FAF7F2] text-[11px] font-extrabold py-1.5 px-3 text-center flex items-center justify-center gap-2">
         <Zap className="w-3.5 h-3.5 fill-[#D4A33C] text-[#D4A33C] shrink-0" />
         <span>{bi("الدفع عند الاستلام", "Paiement à la livraison", "Cash on Delivery")}</span>
       </div>
@@ -325,7 +329,7 @@ export default function LiveSoukHome() {
 
             <button type="button" onClick={() => setIsCartOpen(true)} className="relative p-2.5 rounded-xl bg-[#F7F3EB] border border-[#E5DEC9]">
               <ShoppingBag className="w-4 h-4 text-[#B44328]" />
-              {cart.length > 0 && <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-[#B44328] text-white text-[9px] font-black flex items-center justify-center">{cart.length}</span>}
+              {cart.length > 0 && <span style={{ backgroundColor: "#B44328" }} className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full text-white text-[9px] font-black flex items-center justify-center">{cart.length}</span>}
             </button>
           </div>
         </div>
@@ -355,11 +359,11 @@ export default function LiveSoukHome() {
             </button>
             {streams.slice(0, 10).map((story) => (
               <button type="button" key={`story-${story.id}`} onClick={() => setActiveStream(story)} className="flex flex-col items-center gap-1 shrink-0">
-                <div className="relative p-[2px] rounded-full bg-gradient-to-tr from-[#D4A33C] via-[#B44328] to-[#2E5A44]">
+                <div style={{ background: "linear-gradient(45deg, #D4A33C, #B44328, #2E5A44)" }} className="relative p-[2.5px] rounded-full">
                   <div className="w-[52px] h-[52px] rounded-full bg-[#FAF7F2] flex items-center justify-center font-black text-base text-[#2C241E] border-2 border-[#FAF7F2]">
                     {story.seller?.charAt(0) || "S"}
                   </div>
-                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-[#B44328] text-white text-[7px] font-black px-1.5 rounded-full">LIVE</span>
+                  <span style={{ backgroundColor: "#B44328" }} className="absolute -bottom-1 left-1/2 -translate-x-1/2 text-white text-[7px] font-black px-1.5 rounded-full">LIVE</span>
                 </div>
                 <span className="text-[10px] font-bold text-[#5C4E42] max-w-[64px] truncate">{story.seller}</span>
               </button>
@@ -369,7 +373,7 @@ export default function LiveSoukHome() {
       )}
 
       <section className="max-w-6xl mx-auto px-4 pt-2.5">
-        <div className="rounded-3xl bg-gradient-to-bl from-[#B44328] via-[#96351E] to-[#2E5A44] text-[#FAF7F2] p-5 sm:p-7 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div style={{ background: "linear-gradient(135deg, #B44328 0%, #8E301B 55%, #2E5A44 100%)" }} className="rounded-3xl text-[#FAF7F2] p-5 sm:p-7 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="max-w-xl">
             <div className="inline-flex items-center gap-1.5 bg-white/15 px-3 py-1 rounded-full text-[11px] font-extrabold text-[#FDE68A] mb-2.5">
               <Sparkles className="w-3.5 h-3.5" />
@@ -378,7 +382,7 @@ export default function LiveSoukHome() {
             <h1 className="text-lg sm:text-2xl font-black leading-snug mb-1.5">
               {bi("عروض حية من قلب السوق", "Offres en direct du marché", "Live deals straight from the market")}
             </h1>
-            <p className="text-[#FAF7F2]/85 text-xs sm:text-sm">
+            <p className="text-[#FAF7F2]/90 text-xs sm:text-sm">
               {bi("اطلب مباشرة عبر واتساب", "Commandez directement sur WhatsApp", "Order directly via WhatsApp")}
             </p>
           </div>
@@ -391,17 +395,16 @@ export default function LiveSoukHome() {
 
       <section className="max-w-6xl mx-auto px-4 pt-4 space-y-2.5">
         <div className="flex items-center gap-2 overflow-x-auto pb-1 no-scrollbar">
-          <button type="button" onClick={() => setSelectedCategory("ALL")} className={`px-3.5 py-1.5 rounded-2xl text-xs font-extrabold shrink-0 ${selectedCategory === "ALL" ? "bg-[#2C241E] text-[#FDE68A]" : "bg-[#FAF7F2] text-[#5C4E42] border border-[#E5DEC9]"}`}>
+          <button type="button" onClick={() => setSelectedCategory("ALL")} style={selectedCategory === "ALL" ? { backgroundColor: "#2C241E", color: "#FDE68A" } : {}} className={`px-3.5 py-1.5 rounded-2xl text-xs font-extrabold shrink-0 ${selectedCategory !== "ALL" ? "bg-[#FAF7F2] text-[#5C4E42] border border-[#E5DEC9]" : ""}`}>
             🔥 {bi("الكل", "Tout", "All")}
           </button>
           {CATEGORIES.map((cat) => (
-            <button type="button" key={cat.id} onClick={() => setSelectedCategory(cat.id)} className={`px-3.5 py-1.5 rounded-2xl text-xs font-extrabold shrink-0 flex items-center gap-1.5 ${selectedCategory === cat.id ? "bg-[#2C241E] text-[#FDE68A]" : "bg-[#FAF7F2] text-[#5C4E42] border border-[#E5DEC9]"}`}>
+            <button type="button" key={cat.id} onClick={() => setSelectedCategory(cat.id)} style={selectedCategory === cat.id ? { backgroundColor: "#2C241E", color: "#FDE68A" } : {}} className={`px-3.5 py-1.5 rounded-2xl text-xs font-extrabold shrink-0 flex items-center gap-1.5 ${selectedCategory !== cat.id ? "bg-[#FAF7F2] text-[#5C4E42] border border-[#E5DEC9]" : ""}`}>
               <span>{cat.icon}</span><span>{bi(cat.ar, cat.fr, cat.en)}</span>
             </button>
           ))}
         </div>
 
-        {/* قائمة منسدلة لجميع مدن الدولة + أزرار سريعة */}
         <div className="flex items-center gap-2">
           <div className="relative flex-1 sm:max-w-sm">
             <MapPin className="w-4 h-4 text-[#B44328] absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -424,7 +427,7 @@ export default function LiveSoukHome() {
 
       <main className="max-w-6xl mx-auto px-4 pt-5">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm sm:text-base font-black text-[#2C241E] flex items-center gap-2">
+          <h2 className="text-sm sm:text-base font-black text-[#2C241E] flex items-center gap-2 bg-[#FAF7F2]/90 px-3 py-1.5 rounded-2xl border border-[#E5DEC9]">
             <Flame className="w-5 h-5 text-[#B44328] fill-[#B44328]" />
             <span>
               {activeTab === "favorites"
@@ -437,7 +440,7 @@ export default function LiveSoukHome() {
         </div>
 
         {!loading && filteredStreams.length === 0 ? (
-          <div className="bg-[#FAF7F2] rounded-3xl border border-[#E5DEC9] p-10 text-center space-y-2">
+          <div className="bg-[#FAF7F2]/95 rounded-3xl border border-[#E5DEC9] p-10 text-center space-y-2">
             <Store className="w-10 h-10 text-[#B44328] mx-auto" />
             <p className="text-sm font-bold text-[#5C4E42]">
               {bi("لا توجد عروض حالياً", "Aucune offre disponible", "No offers available")}
@@ -445,32 +448,53 @@ export default function LiveSoukHome() {
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {filteredStreams.map((item) => {
+            {filteredStreams.map((item, idx) => {
               const catObj = CATEGORIES.find((c) => c.id === item.category);
               const catLabel = catObj ? bi(catObj.ar, catObj.fr, catObj.en) : item.category;
+              const cardBg = SAFE_GRADIENTS[idx % SAFE_GRADIENTS.length];
               return (
-                <article key={item.id} className="bg-[#FAF7F2] rounded-[26px] border border-[#E5DEC9] overflow-hidden hover:shadow-lg transition flex flex-col">
-                  <div onClick={() => setActiveStream(item)} className={`relative h-48 bg-gradient-to-br ${item.color || "from-[#B44328] via-[#9A3412] to-[#D4A33C]"} p-4 text-white flex flex-col justify-between cursor-pointer`}>
-                    <div className="flex items-center justify-between">
+                <article key={item.id} className="bg-[#FAF7F2] rounded-[26px] border border-[#E5DEC9] overflow-hidden shadow-sm hover:shadow-lg transition flex flex-col">
+                  <div
+                    onClick={() => setActiveStream(item)}
+                    style={{ background: cardBg }}
+                    className="relative h-52 p-4 text-white flex flex-col justify-between cursor-pointer overflow-hidden"
+                  >
+                    <div
+                      className="absolute inset-0 opacity-15 pointer-events-none"
+                      style={{
+                        backgroundImage: "radial-gradient(circle at 20% 25%, #FDE68A 2px, transparent 2px), radial-gradient(circle at 80% 75%, #FDE68A 2px, transparent 2px)",
+                        backgroundSize: "24px 24px",
+                      }}
+                    />
+
+                    <div className="relative z-10 flex items-center justify-between">
                       <div className="flex items-center gap-1.5">
-                        <span className="bg-[#B44328] border border-white/25 text-[10px] font-black px-2.5 py-1 rounded-full flex items-center gap-1.5">
+                        <span style={{ backgroundColor: "#B44328" }} className="border border-white/30 text-[10px] font-black px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow">
                           <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
                           {bi("مباشر", "DIRECT", "LIVE")}
                         </span>
-                        <span className="bg-black/35 backdrop-blur-md text-[11px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
-                          <Eye className="w-3 h-3" />{item.viewers || 34}
+                        <span className="bg-black/40 backdrop-blur-md text-[11px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+                          <Eye className="w-3 h-3" />{item.viewers || 43}
                         </span>
                       </div>
-                      <button type="button" onClick={(e) => { e.stopPropagation(); navigator.share?.({ title: item.title, url: window.location.href }); }} className="p-2 rounded-full bg-black/30">
-                        <Share2 className="w-3.5 h-3.5" />
+                      <button type="button" onClick={(e) => { e.stopPropagation(); navigator.share?.({ title: item.title, url: window.location.href }); }} className="p-2 rounded-full bg-black/35 hover:bg-black/50">
+                        <Share2 className="w-3.5 h-3.5 text-white" />
                       </button>
                     </div>
-                    <div className="self-center w-12 h-12 rounded-full bg-white/25 backdrop-blur-md border border-white/40 flex items-center justify-center">
-                      <Play className="w-5 h-5 fill-white text-white ml-0.5" />
+
+                    <div className="relative z-10 flex flex-col items-center gap-2 my-auto">
+                      <div className="w-14 h-14 rounded-2xl bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center shadow-lg">
+                        <span className="text-2xl">{catObj?.icon || "🛍️"}</span>
+                      </div>
+                      <span className="bg-black/35 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-extrabold text-[#FDE68A] flex items-center gap-1.5">
+                        <Play className="w-3 h-3 fill-[#FDE68A]" />
+                        {bi("شاهد العرض المباشر", "Voir le direct", "Watch Live")}
+                      </span>
                     </div>
-                    <div className="flex items-center justify-between gap-1">
-                      <span className="bg-[#FAF7F2] text-[#2C241E] px-2.5 py-1 rounded-xl text-[10px] font-black truncate">{catLabel}</span>
-                      <span className="bg-black/35 backdrop-blur-md px-2.5 py-1 rounded-xl text-[10px] font-bold flex items-center gap-1 truncate">
+
+                    <div className="relative z-10 flex items-center justify-between gap-1.5">
+                      <span className="bg-[#FAF7F2] text-[#2C241E] px-2.5 py-1 rounded-xl text-[10px] font-black truncate shadow-sm">{catLabel}</span>
+                      <span className="bg-black/40 backdrop-blur-md px-2.5 py-1 rounded-xl text-[10px] font-bold flex items-center gap-1 truncate">
                         <MapPin className="w-3 h-3 text-[#FDE68A] shrink-0" />{item.city}
                       </span>
                     </div>
@@ -486,7 +510,7 @@ export default function LiveSoukHome() {
                       </div>
                       <div className="flex items-center justify-between text-xs mb-4 pb-3 border-b border-[#E5DEC9]">
                         <span className="font-bold text-[#5C4E42] flex items-center gap-1.5">
-                          <span className="w-5 h-5 rounded-full bg-[#2E5A44] text-white font-black flex items-center justify-center text-[10px]">{item.seller?.charAt(0) || "S"}</span>
+                          <span style={{ backgroundColor: "#2E5A44" }} className="w-5 h-5 rounded-full text-white font-black flex items-center justify-center text-[10px]">{item.seller?.charAt(0) || "S"}</span>
                           {item.seller} <ShieldCheck className="w-3.5 h-3.5 text-[#2E5A44]" />
                         </span>
                         <span className="flex items-center gap-1 text-[#B45309] font-extrabold">
@@ -505,7 +529,7 @@ export default function LiveSoukHome() {
                           + {bi("السلة", "Panier", "Cart")}
                         </button>
                       </div>
-                      <button type="button" onClick={() => openWhatsApp(item)} className="w-full py-3 rounded-2xl bg-[#2E5A44] hover:bg-[#244836] text-white font-black text-xs sm:text-sm flex items-center justify-center gap-2">
+                      <button type="button" onClick={() => openWhatsApp(item)} style={{ backgroundColor: "#2E5A44" }} className="w-full py-3 rounded-2xl text-white font-black text-xs sm:text-sm flex items-center justify-center gap-2 shadow-sm">
                         <MessageCircle className="w-4 h-4 shrink-0" />
                         <span>{bi("اطلب عبر واتساب", "Commander sur WhatsApp", "Order on WhatsApp")}</span>
                       </button>
@@ -525,7 +549,7 @@ export default function LiveSoukHome() {
         <button type="button" onClick={() => { setActiveTab("home"); window.scrollTo({ top: 240, behavior: "smooth" }); }} className="flex flex-col items-center gap-0.5 py-1 px-1.5 text-[#7A6B5D]">
           <Compass className="w-5 h-5" /><span className="text-[9px] font-extrabold">{bi("المدن", "Villes", "Cities")}</span>
         </button>
-        <button type="button" onClick={() => setIsAddModalOpen(true)} className="w-12 h-12 -mt-6 rounded-2xl bg-[#B44328] text-white flex items-center justify-center shadow-lg border-4 border-[#F7F3EB] shrink-0">
+        <button type="button" onClick={() => setIsAddModalOpen(true)} style={{ backgroundColor: "#B44328" }} className="w-12 h-12 -mt-6 rounded-2xl text-white flex items-center justify-center shadow-lg border-4 border-[#F7F3EB] shrink-0">
           <Plus className="w-6 h-6 stroke-[3]" />
         </button>
         <button type="button" onClick={() => setActiveTab("favorites")} className={`flex flex-col items-center gap-0.5 py-1 px-1.5 ${activeTab === "favorites" ? "text-[#B44328]" : "text-[#7A6B5D]"}`}>
@@ -533,7 +557,7 @@ export default function LiveSoukHome() {
         </button>
         <button type="button" onClick={() => setIsCartOpen(true)} className="relative flex flex-col items-center gap-0.5 py-1 px-1.5 text-[#7A6B5D]">
           <ShoppingBag className="w-5 h-5" /><span className="text-[9px] font-extrabold">{bi("السلة", "Panier", "Cart")}</span>
-          {cart.length > 0 && <span className="absolute top-0.5 right-1 w-4 h-4 rounded-full bg-[#B44328] text-white text-[9px] font-black flex items-center justify-center">{cart.length}</span>}
+          {cart.length > 0 && <span style={{ backgroundColor: "#B44328" }} className="absolute top-0.5 right-1 w-4 h-4 rounded-full text-white text-[9px] font-black flex items-center justify-center">{cart.length}</span>}
         </button>
       </nav>
 
@@ -577,7 +601,7 @@ export default function LiveSoukHome() {
                 <label className="block font-bold text-[#5C4E42] mb-1 text-xs">{bi("رقم واتساب *", "WhatsApp *", "WhatsApp *")}</label>
                 <input required type="tel" value={formData.whatsapp} onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })} className="w-full px-4 py-2.5 rounded-2xl bg-[#F7F3EB] border border-[#E5DEC9]" />
               </div>
-              <button type="submit" disabled={submitting} className="w-full py-3 rounded-2xl bg-[#B44328] text-white font-black text-xs sm:text-sm flex items-center justify-center gap-2">
+              <button type="submit" disabled={submitting} style={{ backgroundColor: "#B44328" }} className="w-full py-3 rounded-2xl text-white font-black text-xs sm:text-sm flex items-center justify-center gap-2">
                 {submitting ? <Loader2 className="w-4 h-4 animate-spin" /> : <span>{bi("نشر العرض الآن", "Publier maintenant", "Publish Now")}</span>}
               </button>
             </form>
@@ -610,7 +634,7 @@ export default function LiveSoukHome() {
             {cart.length > 0 && (
               <div className="pt-4 border-t border-[#E5DEC9]">
                 <div className="flex justify-between font-black text-sm mb-4"><span>{bi("المجموع", "Total", "Total")}:</span><span className="text-[#B44328]">{totalCartPrice} {country.currency}</span></div>
-                <button type="button" onClick={() => openWhatsApp(cart[0])} className="w-full py-3.5 rounded-2xl bg-[#2E5A44] text-white font-black text-xs sm:text-sm flex items-center justify-center gap-2">
+                <button type="button" onClick={() => openWhatsApp(cart[0])} style={{ backgroundColor: "#2E5A44" }} className="w-full py-3.5 rounded-2xl text-white font-black text-xs sm:text-sm flex items-center justify-center gap-2">
                   <MessageCircle className="w-5 h-5" /><span>{bi("إتمام الطلب عبر واتساب", "Commander sur WhatsApp", "Checkout on WhatsApp")}</span>
                 </button>
               </div>
@@ -622,9 +646,9 @@ export default function LiveSoukHome() {
       {activeStream && (
         <div className="fixed inset-0 z-50 bg-[#2C241E]/70 backdrop-blur-sm flex items-center justify-center p-4">
           <div className="bg-[#FAF7F2] rounded-3xl max-w-lg w-full overflow-hidden border border-[#E5DEC9] shadow-2xl">
-            <div className={`h-52 bg-gradient-to-br ${activeStream.color || "from-[#B44328] via-[#9A3412] to-[#D4A33C]"} p-6 text-white flex flex-col justify-between`}>
+            <div style={{ background: SAFE_GRADIENTS[0] }} className="h-52 p-6 text-white flex flex-col justify-between">
               <div className="flex justify-between items-center">
-                <span className="bg-[#B44328] px-3 py-1 rounded-full text-xs font-black">{bi("مباشر", "DIRECT", "LIVE")} • {activeStream.city}</span>
+                <span style={{ backgroundColor: "#B44328" }} className="px-3 py-1 rounded-full text-xs font-black">{bi("مباشر", "DIRECT", "LIVE")} • {activeStream.city}</span>
                 <button type="button" onClick={() => setActiveStream(null)} className="bg-black/35 p-2 rounded-full"><X className="w-5 h-5" /></button>
               </div>
               <h3 className="text-xl font-black">{activeStream.title}</h3>
@@ -634,7 +658,7 @@ export default function LiveSoukHome() {
                 <div><p className="text-[11px] text-[#7A6B5D]">{bi("المتجر", "Boutique", "Store")}</p><p className="font-black text-base">{activeStream.seller}</p></div>
                 <div><p className="text-[11px] text-[#7A6B5D]">{bi("الثمن", "Prix", "Price")}</p><p className="text-xl font-black text-[#B44328]">{activeStream.price} {country.currency}</p></div>
               </div>
-              <button type="button" onClick={() => openWhatsApp(activeStream)} className="w-full py-3.5 rounded-2xl bg-[#2E5A44] text-white font-black text-xs sm:text-sm flex items-center justify-center gap-2">
+              <button type="button" onClick={() => openWhatsApp(activeStream)} style={{ backgroundColor: "#2E5A44" }} className="w-full py-3.5 rounded-2xl text-white font-black text-xs sm:text-sm flex items-center justify-center gap-2">
                 <MessageCircle className="w-5 h-5" /><span>{bi("اطلب عبر واتساب", "Commander sur WhatsApp", "Order on WhatsApp")}</span>
               </button>
             </div>
