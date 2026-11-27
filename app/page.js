@@ -475,7 +475,7 @@ export default function LiveSoukHome() {
                         </span>          </div>
         </article>
       ))}
-    
+</div>    
   )}
 
      </section> 
