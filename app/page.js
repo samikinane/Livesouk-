@@ -472,6 +472,7 @@ export default function LiveSoukHome() {
                         <span style={{ backgroundColor: "#B44328" }} className="border border-white/30 text-[10px] font-black px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow">
                           <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
                         {bi("مباشر", "DIRECT", "LIVE")}
+                        
                         </span>          </div>
         </article>
       ))}
