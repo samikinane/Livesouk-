@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <clipPath id="squircle">
+      <rect x="0" y="0" width="512" height="512" rx="120" />
+    </clipPath>
+    <pattern id="zellige" width="64" height="64" patternUnits="userSpaceOnUse">
+      <g fill="none" stroke="#B44328" stroke-width="1.2" stroke-opacity="0.08">
+        <polygon points="32,4 40,24 60,32 40,40 32,60 24,40 4,32 24,24" />
+        <rect x="16" y="16" width="32" height="32" transform="rotate(45 32 32)" />
+        <circle cx="32" cy="32" r="6" stroke="#2E5A44" stroke-opacity="0.12" />
+      </g>
+    </pattern>
+  </defs>
+
+  <g clip-path="url(#squircle)">
+    <rect width="512" height="512" fill="#F7F3EB" />
+    <rect width="512" height="512" fill="url(#zellige)" />
+
+    <rect x="24" y="24" width="464" height="464" rx="96" fill="none" stroke="#E5DEC9" stroke-width="6" />
+    <rect x="36" y="36" width="440" height="440" rx="84" fill="none" stroke="#B44328" stroke-width="2" stroke-opacity="0.15" />
+
+    <g transform="translate(4, -12) scale(1.05)">
+      <path d="M150 120H320V200H285V155C285 130 230 110 230 110C230 110 175 130 175 155V210H150V120Z" fill="#B44328" />
+      <path d="M200 210V165C200 150 235 135 230 135C230 135 265 150 265 165V190" stroke="#D4A33C" stroke-width="14" stroke-linecap="round" fill="none" />
+      <path d="M150 240H190V390H270L290 420H150V240Z" fill="#B44328" />
+      
+      <path d="M315 210C260 210 215 255 215 310C215 375 315 440 315 440C315 440 415 375 415 310C415 255 370 210 315 210Z" fill="#2E5A44" />
+      <circle cx="315" cy="305" r="52" fill="#FAF7F2" />
+      <circle cx="315" cy="305" r="26" fill="#D4A33C" />
+      
+      <path d="M365 160C405 168 433 200 440 238" stroke="#D4A33C" stroke-width="18" stroke-linecap="round" fill="none" />
+      <path d="M365 120C425 130 470 175 480 238" stroke="#B44328" stroke-width="16" stroke-linecap="round" fill="none" />
+    </g>
+  </g>
+</svg>
