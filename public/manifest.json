@@ -1,15 +1,13 @@
 {
-  "name": "LiveSouk - التسوق المباشر في المغرب",
+  "name": "LiveSouk - سوق مباشر",
   "short_name": "LiveSouk",
-  "description": "أول سوق مغربي للتسوق المباشر مع الدفع عند الاستلام والطلب عبر واتساب",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#e11d48",
-  "orientation": "portrait",
+  "background_color": "#F7F3EB",
+  "theme_color": "#B44328",
   "icons": [
     {
-      "src": "https://cdn-icons-png.flaticon.com/512/3081/3081559.png",
+      "src": "/icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
