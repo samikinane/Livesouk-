@@ -482,7 +482,7 @@ export default function LiveSoukHome() {
                         
                               
 
-                      
+</div>                      
         </article>
       ))}
 </div>    
