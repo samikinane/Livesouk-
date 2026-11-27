@@ -7,7 +7,7 @@
   "theme_color": "#B44328",
   "icons": [
     {
-      "src": "/icon.png",
+"src": "/livesouk-icon-name-square.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
