@@ -488,7 +488,7 @@ export default function LiveSoukHome() {
       )}
     )}
     </section>
-  </div>
+  
   
 
                         <span className="bg-black/40 backdrop-blur-md text-[11px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
