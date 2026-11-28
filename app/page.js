@@ -488,8 +488,8 @@ export default function LiveSoukHome() {
       )}
     )}
     </section>
-  
-  
+ 
+ 
 
                         <span className="bg-black/40 backdrop-blur-md text-[11px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
                           <Eye className="w-3 h-3" />{item.viewers || 43}
