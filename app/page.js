@@ -471,26 +471,8 @@ export default function LiveSoukHome() {
                       <div className="flex items-center gap-1.5">
                         <span style={{ backgroundColor: "#B44328" }} className="border border-white/30 text-[10px] font-black px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow">
                           <span className="w-1.5 h-1.5 rounded-full bg-white animate-ping" />
-                        {bi("DIRECT", "DIRECT", "LIVE")}
-</span>
-</div>
-</div>
-
-
-
-                            
-                        
-                              
-
-                </div>
-            </article>
-        
-      )}
-    )}
-    </section>
- 
- 
-
+                          {bi("DIRECT", "DIRECT", "LIVE")}
+                        </span>
                         <span className="bg-black/40 backdrop-blur-md text-[11px] font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
                           <Eye className="w-3 h-3" />{item.viewers || 43}
                         </span>
@@ -517,15 +499,7 @@ export default function LiveSoukHome() {
                       </span>
                     </div>
                   </div>
-        </article>
-      ))}
-    </div>
-  )}
-</section>
-      </main>
-    </div>
-  );
-}
+
                   <div className="p-4 flex-1 flex flex-col justify-between">
                     <div>
                       <div className="flex items-start justify-between gap-2 mb-2">
@@ -692,11 +666,5 @@ export default function LiveSoukHome() {
         </div>
       )}
     </div>
-        </div>
-    </div>
-  )}
-      </main>
-    </div>
   );
-}
 }
